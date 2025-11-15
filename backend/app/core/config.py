@@ -39,6 +39,8 @@ class Settings(BaseSettings):
     BACKEND_CORS_ORIGINS: List[str] = [
         "http://localhost:3000",
         "http://localhost:8000",
+        "http://82.202.131.222:3000",
+        "http://82.202.131.222:8000",
     ]
     
     # File Upload
