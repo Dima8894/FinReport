@@ -1,15 +1,15 @@
-# FinReportAI Frontend Dockerfile (Production)
-# Next.js 14 Application
+# Production Dockerfile for Next.js Frontend
 
-FROM node:20-alpine AS base
+FROM node:18-alpine AS base
 
 # Install dependencies only when needed
 FROM base AS deps
+RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 # Install dependencies
 COPY package.json package-lock.json* ./
-RUN npm install
+RUN npm ci
 
 # Rebuild the source code only when needed
 FROM base AS builder
@@ -17,9 +17,17 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Next.js telemetry is disabled
+# Build arguments
+ARG NEXT_PUBLIC_API_URL
+ARG NEXT_PUBLIC_TELEGRAM_BOT_NAME
+
+# Set environment variables for build
+ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+ENV NEXT_PUBLIC_TELEGRAM_BOT_NAME=${NEXT_PUBLIC_TELEGRAM_BOT_NAME}
+ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
+# Build Next.js
 RUN npm run build
 
 # Production image, copy all the files and run next
@@ -50,4 +58,3 @@ ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
 CMD ["node", "server.js"]
-
