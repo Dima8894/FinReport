@@ -45,7 +45,7 @@ services:
     restart: unless-stopped
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 4
     ports:
-      - "8000:8000"
+      - "8001:8000"
     environment:
       - DATABASE_URL=postgresql://${POSTGRES_USER:-finreportai}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-finreportai}
       - REDIS_URL=redis://redis:6379
