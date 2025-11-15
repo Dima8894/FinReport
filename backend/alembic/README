@@ -1,0 +1,39 @@
+# Alembic Migrations
+
+Эта папка содержит миграции базы данных для FinReportAI.
+
+## Команды
+
+### Создать новую миграцию (autogenerate)
+```bash
+alembic revision --autogenerate -m "Add users table"
+```
+
+### Применить все миграции
+```bash
+alembic upgrade head
+```
+
+### Откатить миграцию
+```bash
+alembic downgrade -1
+```
+
+### Посмотреть историю миграций
+```bash
+alembic history
+```
+
+### Посмотреть текущую версию БД
+```bash
+alembic current
+```
+
+## Правила
+
+1. **НИКОГДА** не редактируйте применённые миграции после merge в main
+2. Всегда проверяйте autogenerate миграции перед применением
+3. Включайте как upgrade(), так и downgrade() в каждую миграцию
+4. Давайте осмысленные имена миграциям
+5. Тестируйте миграции локально перед push
+
