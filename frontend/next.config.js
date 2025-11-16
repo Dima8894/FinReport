@@ -3,9 +3,6 @@ const nextConfig = {
   // Enable standalone output for Docker
   output: 'standalone',
   
-  // Disable telemetry
-  telemetry: false,
-  
   // Strict mode for better error handling
   reactStrictMode: true,
   
